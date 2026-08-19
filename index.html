@@ -228,7 +228,7 @@ footer{ margin-top:60px; background: var(--ink); color: var(--cream); padding: 4
     <a href="#" data-filter="Phụ kiện">Phụ kiện</a>
   </nav>
   <div class="header-actions">
-    <button class="pill-btn ghost" id="adminLoginBtn">Quản trị viên</button>
+      <button class="pill-btn ghost" id="adminLoginBtn" style="display:none;">Quản trị viên</button>
     <button class="pill-btn" id="toggleFormBtn" style="display:none;">+ Thêm sản phẩm</button>
   </div>
 </header>
@@ -410,7 +410,15 @@ const loginError = document.getElementById('loginError');
 
 function applyAdminUI(){
   toggleFormBtn.style.display = isAdmin ? 'inline-block' : 'none';
-  adminLoginBtn.textContent = isAdmin ? 'Đăng xuất' : 'Quản trị viên';
+
+  // Chỉ hiện nút "Quản trị viên" nếu trên đường link có chữ 'admin' hoặc đã đăng nhập
+  if (isAdmin || window.location.href.includes('admin')) {
+    adminLoginBtn.style.display = 'inline-block';
+    adminLoginBtn.textContent = isAdmin ? 'Đăng xuất' : 'Quản trị viên';
+  } else {
+    adminLoginBtn.style.display = 'none';
+  }
+
   if(!isAdmin) panel.classList.remove('open');
 }
 
